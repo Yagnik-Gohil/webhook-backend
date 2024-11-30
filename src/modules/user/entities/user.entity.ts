@@ -1,3 +1,4 @@
+import { EventHistory } from '@modules/event-history/entities/event-history.entity';
 import { Subscription } from '@modules/subscription/entities/subscription.entity';
 import { Token } from '@modules/token/entities/token.entity';
 import { DefaultStatus } from '@shared/constants/enum';
@@ -34,4 +35,7 @@ export class User extends DefaultEntity {
 
   @OneToMany(() => Subscription, (subscription) => subscription.user)
   subscription: Subscription[];
+
+  @OneToMany(() => EventHistory, (event_history) => event_history.user)
+  event_history: EventHistory[];
 }

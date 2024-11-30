@@ -11,6 +11,7 @@ import { TokenModule } from './modules/token/token.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SourceModule } from './modules/source/source.module';
 import { SubscriptionModule } from './modules/subscription/subscription.module';
+import { EventHistoryModule } from './modules/event-history/event-history.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { SubscriptionModule } from './modules/subscription/subscription.module';
     AuthModule,
     SourceModule,
     SubscriptionModule,
+    EventHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

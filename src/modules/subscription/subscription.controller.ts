@@ -22,6 +22,7 @@ import response from '@shared/response';
 import { MESSAGE, VALUE } from '@shared/constants/constant';
 import { Request, Response } from 'express';
 import { User } from '@modules/user/entities/user.entity';
+import { DefaultStatus } from '@shared/constants/enum';
 
 @Controller('subscription')
 export class SubscriptionController {
@@ -59,7 +60,7 @@ export class SubscriptionController {
   ) {
     const [list, count] = await this.subscriptionService.findAll({
       relations: { source: true },
-      where: { user: { id: req['user']['id'] } },
+      where: { user: { id: req['user']['id'] }, status: DefaultStatus.ACTIVE },
       take: +limit,
       skip: +offset,
     });
