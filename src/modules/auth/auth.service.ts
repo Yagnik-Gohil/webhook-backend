@@ -10,6 +10,7 @@ import { MESSAGE } from '@shared/constants/constant';
 import hashPassword from '@shared/function/hash-password';
 import { LoginDto } from './dto/login.dto';
 import comparePassword from '@shared/function/compare-password';
+import { DefaultStatus } from '@shared/constants/enum';
 
 @Injectable()
 export class AuthService {
@@ -98,6 +99,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       where: {
         email: loginDto.email,
+        status: DefaultStatus.ACTIVE,
       },
     });
 
