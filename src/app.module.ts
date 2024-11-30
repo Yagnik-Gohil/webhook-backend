@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SourceModule } from './modules/source/source.module';
 import { SubscriptionModule } from './modules/subscription/subscription.module';
 import { EventHistoryModule } from './modules/event-history/event-history.module';
+import { WebhookModule } from './modules/webhook/webhook.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EventHistoryModule } from './modules/event-history/event-history.module
     SourceModule,
     SubscriptionModule,
     EventHistoryModule,
+    WebhookModule,
   ],
   controllers: [AppController],
   providers: [AppService],

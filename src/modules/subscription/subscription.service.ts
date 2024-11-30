@@ -92,4 +92,17 @@ export class SubscriptionService {
     });
     return result;
   }
+
+  async findSubscribedUsers(name: string, event: string) {
+    const list = await this.subscriptionRepository
+      .createQueryBuilder('su')
+      .select(['su.id AS id', 'su.user_id AS user_id'])
+      .leftJoin('source', 'so', 'so.id = su.source_id')
+      .where('su.status = :status', { status: DefaultStatus.ACTIVE })
+      .andWhere('so.name = :name', { name })
+      .andWhere('su.events::jsonb @> :event::jsonb', { event: `["${event}"]` })
+      .getRawMany();
+
+    return list;
+  }
 }

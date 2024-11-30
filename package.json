@@ -33,7 +33,9 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/platform-socket.io": "^10.4.12",
     "@nestjs/typeorm": "^10.0.2",
+    "@nestjs/websockets": "^10.4.12",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "dotenv": "^16.4.5",
@@ -43,6 +45,7 @@
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "socket.io": "^4.8.1",
     "typeorm": "^0.3.20",
     "winston": "^3.17.0"
   },
