@@ -10,6 +10,7 @@ import { UserModule } from './modules/user/user.module';
 import { TokenModule } from './modules/token/token.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SourceModule } from './modules/source/source.module';
+import { SubscriptionModule } from './modules/subscription/subscription.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SourceModule } from './modules/source/source.module';
     TokenModule,
     AuthModule,
     SourceModule,
+    SubscriptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

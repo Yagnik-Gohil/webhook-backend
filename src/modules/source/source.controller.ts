@@ -4,6 +4,7 @@ import { MESSAGE, VALUE } from '@shared/constants/constant';
 import { Response } from 'express';
 import response from '@shared/response';
 import { AuthGuard } from '@shared/guard/auth.guard';
+import { DefaultStatus } from '@shared/constants/enum';
 
 @Controller('source')
 export class SourceController {
@@ -17,6 +18,7 @@ export class SourceController {
     @Res() res: Response,
   ) {
     const [list, count] = await this.sourceService.findAll({
+      where: { status: DefaultStatus.ACTIVE },
       take: +limit,
       skip: +offset,
     });

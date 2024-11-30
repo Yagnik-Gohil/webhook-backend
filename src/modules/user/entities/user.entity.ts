@@ -1,3 +1,4 @@
+import { Subscription } from '@modules/subscription/entities/subscription.entity';
 import { Token } from '@modules/token/entities/token.entity';
 import { DefaultStatus } from '@shared/constants/enum';
 import { DefaultEntity } from '@shared/entities/default.entity';
@@ -30,4 +31,7 @@ export class User extends DefaultEntity {
 
   @OneToMany(() => Token, (token) => token.user)
   token: Token[];
+
+  @OneToMany(() => Subscription, (subscription) => subscription.user)
+  subscription: Subscription[];
 }

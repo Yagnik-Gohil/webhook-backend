@@ -3,7 +3,7 @@ export const MESSAGE = {
   SIGN_UP: 'Signup Successful',
   LOGIN: 'Login Successful',
   LOGOUT: 'Logout Successful',
-  RECORD_CREATED: (record: string) => `${record} created Successfully`,
+  RECORD_CREATED: (record: string) => `${record} Created Successfully`,
   RECORD_UPDATED: (record: string) => `${record} Updated Successfully`,
   RECORD_DELETED: (record: string) => `${record} Deleted Successfully`,
   RECORD_FOUND: (record: string) => `${record} Found Successfully`,
