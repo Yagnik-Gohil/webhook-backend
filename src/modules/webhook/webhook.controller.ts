@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { SubscriptionService } from '@modules/subscription/subscription.service';
 import { EventHistoryService } from '@modules/event-history/event-history.service';
 import { WebhookGateway } from './webhook.gateway';
+import getThumbnail from '@shared/function/get-thumbnail';
 
 @Controller('webhook')
 export class WebhookController {
@@ -32,11 +33,10 @@ export class WebhookController {
     await this.eventHistoryService.save(eventEntries);
 
     subscribedUsers.forEach((data) => {
-      this.webhookGateway.emitToUserDevices(
-        data.user_id,
-        'webhook-event',
-        payload,
-      );
+      this.webhookGateway.emitToUserDevices(data.user_id, 'webhook-event', {
+        ...payload,
+        thumbnail: getThumbnail(source),
+      });
     });
 
     return response.successCreate(
