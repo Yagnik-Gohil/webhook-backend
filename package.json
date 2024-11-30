@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:development": "export NODE_ENV=development && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -17,14 +17,31 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "pre:commit": "npm run format && npm run lint",
+    "pre:push": "npm run build",
+    "typeorm": "npm run build && npx typeorm -d dist/data-source.js",
+    "migration:generate": "export NODE_ENV=development && npm run typeorm -- migration:generate",
+    "migration:up:development": "export NODE_ENV=development && npm run typeorm -- migration:run",
+    "migration:down:development": "export NODE_ENV=development && npm run typeorm -- migration:revert"
   },
+  "pre-commit": "pre:commit",
+  "pre-push": "pre:push",
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/typeorm": "^10.0.2",
+    "class-transformer": "^0.5.1",
+    "dotenv": "^16.4.5",
+    "helmet": "^8.0.0",
+    "joi": "^17.13.3",
+    "pg": "^8.13.1",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
