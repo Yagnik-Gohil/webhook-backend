@@ -18,7 +18,7 @@ interface List {
 const successCreate = (data: Data, res: Response) => {
   res.status(HttpStatus.CREATED).json({
     status: 1,
-    message: data.message ? data.message : MESSAGE.DEFAULT,
+    message: data.message ? data.message : MESSAGE.SUCCESS,
     data: data.data,
   });
 };
@@ -26,7 +26,7 @@ const successCreate = (data: Data, res: Response) => {
 const successResponse = (data: Data, res: Response) => {
   res.status(HttpStatus.OK).json({
     status: 1,
-    message: data.message ? data.message : MESSAGE.DEFAULT,
+    message: data.message ? data.message : MESSAGE.SUCCESS,
     data: data.data,
   });
 };
