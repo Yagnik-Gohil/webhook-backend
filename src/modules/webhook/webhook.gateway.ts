@@ -6,6 +6,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { WebhookService } from './webhook.service';
+import logger from '@shared/logger';
 
 @WebSocketGateway()
 export class WebhookGateway
@@ -23,18 +24,25 @@ export class WebhookGateway
   private userSocketMap = new Map<string, string[]>();
 
   async handleConnection(client: Socket) {
-    // const token = client.handshake.auth.authorization as string;
-    const token = client.handshake.headers.authorization as string;
-    const userId = await this.webhookService.validateTokenAndGetUserId(token);
+    try {
+      const token = client.handshake.auth.authorization as string;
+      // const token = client.handshake.headers.authorization as string;
+      const userId = await this.webhookService.validateTokenAndGetUserId(token);
 
-    // Add to socket-user map
-    this.socketUserMap.set(client.id, userId);
+      // Add to socket-user map
+      this.socketUserMap.set(client.id, userId);
 
-    // Add socket to user-device map
-    if (!this.userSocketMap.has(userId)) {
-      this.userSocketMap.set(userId, []);
+      // Add socket to user-device map
+      if (!this.userSocketMap.has(userId)) {
+        this.userSocketMap.set(userId, []);
+      }
+      this.userSocketMap.get(userId).push(client.id);
+    } catch (error) {
+      logger.error(
+        `${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} - CHAT - ${error.message}`,
+      );
+      client.disconnect();
     }
-    this.userSocketMap.get(userId).push(client.id);
   }
 
   handleDisconnect(client: Socket) {
