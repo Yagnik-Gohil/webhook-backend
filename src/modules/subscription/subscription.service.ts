@@ -7,12 +7,15 @@ import { FindManyOptions, IsNull, Not, Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { MESSAGE } from '@shared/constants/constant';
 import { DefaultStatus } from '@shared/constants/enum';
+import { EventHistory } from '@modules/event-history/entities/event-history.entity';
 
 @Injectable()
 export class SubscriptionService {
   constructor(
     @InjectRepository(Subscription)
     private readonly subscriptionRepository: Repository<Subscription>,
+    @InjectRepository(EventHistory)
+    private readonly eventHistoryRepository: Repository<EventHistory>,
   ) {}
   async create(createSubscriptionDto: CreateSubscriptionDto, userId: string) {
     const { source, ...subscription } = createSubscriptionDto;
@@ -90,6 +93,12 @@ export class SubscriptionService {
       user: { id: userId },
       deleted_at: IsNull(),
     });
+
+    if (result.affected) {
+      await this.eventHistoryRepository.delete({
+        subscription: { id },
+      });
+    }
     return result;
   }
 

@@ -15,6 +15,7 @@ export class EventHistoryController {
     @Query('limit') limit: number = VALUE.limit,
     @Query('offset') offset: number = VALUE.offset,
     @Query('source') source: string,
+    @Query('event') event: string,
     @Req() req: Request,
     @Res() res: Response,
   ) {
@@ -23,6 +24,7 @@ export class EventHistoryController {
       where: {
         user: { id: req['user']['id'] },
         subscription: source ? { source: { id: source } } : undefined,
+        event: event,
       },
       order: {
         created_at: 'DESC',
