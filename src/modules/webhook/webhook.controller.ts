@@ -36,6 +36,11 @@ export class WebhookController {
       this.webhookGateway.emitToUserDevices(data.user_id, 'webhook-event', {
         ...payload,
         thumbnail: getThumbnail(source),
+        created_at: new Date().toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+        }),
       });
     });
 

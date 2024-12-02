@@ -7,6 +7,8 @@ import {
 import { Server, Socket } from 'socket.io';
 import { WebhookService } from './webhook.service';
 import logger from '@shared/logger';
+import { HttpStatus } from '@nestjs/common';
+import { MESSAGE } from '@shared/constants/constant';
 
 @WebSocketGateway()
 export class WebhookGateway
@@ -39,8 +41,12 @@ export class WebhookGateway
       this.userSocketMap.get(userId).push(client.id);
     } catch (error) {
       logger.error(
-        `${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} - CHAT - ${error.message}`,
+        `${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })} - SOCKET - ${error.message}`,
       );
+      client.emit('error', {
+        status: HttpStatus.UNAUTHORIZED,
+        message: MESSAGE.UNAUTHENTICATED,
+      });
       client.disconnect();
     }
   }
